@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
         # Filtro nombre
         self.filters_name_lineedit = QLineEdit()
         self.filters_v_layout.addRow("Nombre:", self.filters_name_lineedit)
-        self.filters_name_lineedit.textChanged.connect(self.filter_table)  # Connect to filter function
+        self.filters_name_lineedit.textChanged.connect(self.filter_table)
         # Filtro hora
         self.filters_time_combobox = QComboBox()
         self.filters_time_combobox.addItems(["Cualquiera"])
@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
 
         # Espaciador equis
         spacer = QWidget()
-        spacer.setFixedSize(QSize(10, 10))  # Adjust the size as needed
+        spacer.setFixedSize(QSize(10, 10))  # Ajustar tamaño según se necesite
         self.layout.addWidget(spacer)
 
         # Finalizar layout
@@ -233,29 +233,28 @@ class MainWindow(QMainWindow):
         self.table.clearSelection()
         self.table.setCurrentItem(None)
 
-    # Function to update the selected row with form data
     def update_selected_row(self):
-        # Check if a row is selected
+        # Checar si la tabla está seleccionada
         selected_row = self.table.currentRow()
         if selected_row == -1:
             print("Seleccione una fila para actualizar.")
             return
 
-        # Get the updated data from the form
+        # Obtener datos actualizados del formulario
         day = self.day_calendar.selectedDate().toString("yyyy-MM-dd")
         time = self.time_combobox.currentText()
         name = self.name_lineedit.text()
         subject = self.subject_lineedit.text()
         classroom = self.classroom_combobox.currentText()
 
-        # Update the selected row in the table with the new data
+        # Actualizar tabla (esto es solo algo visual)
         self.table.item(selected_row, 0).setText(day)
         self.table.item(selected_row, 1).setText(time)
         self.table.item(selected_row, 2).setText(name)
         self.table.item(selected_row, 3).setText(subject)
         self.table.item(selected_row, 4).setText(classroom)
 
-        # Update the data in the database
+        # Actualizar en la base de datos
         self.mongo_handler.update_data(day, time, name, subject, classroom)
 
         print("Registro actualizado correctamente.")
