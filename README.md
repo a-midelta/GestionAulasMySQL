@@ -23,3 +23,8 @@ A continuación, se presentan algunas capturas de pantalla del proyecto:
 ![ss2](/ss/ss02.png)
 
 ![ss3](/ss/ss03.png)
+
+---
+# Integrantes del equipo:
+* Lizárraga Sarabia Alejandro
+* Sánz Soto Rocío Alexandra
