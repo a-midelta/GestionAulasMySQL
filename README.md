@@ -28,3 +28,4 @@ A continuación, se presentan algunas capturas de pantalla del proyecto:
 # Integrantes del equipo:
 * Lizárraga Sarabia Alejandro
 * Sánz Soto Rocío Alexandra
+* Troncoso Avalos Bernardo Andrés
