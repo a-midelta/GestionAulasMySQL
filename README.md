@@ -1,6 +1,6 @@
 # Proyecto de Gestión de Aulas de Computo
 
-Este proyecto de gestión de aulas de computo se desarrolló como parte del curso de *Cómputo en la Nube*. El proyecto se ha implementado utilizando Python, con una base de datos MongoDB y haciendo uso de la biblioteca PySide6 para la interfaz gráfica. Su objetivo principal es registrar la disponibilidad de aulas de cómputo en diferentes momentos para diversas materias.
+Este proyecto de gestión de aulas de computo se desarrolló como parte del curso de *Cómputo en la Nube*. El proyecto se ha implementado utilizando Python, con una base de datos ~~MongoDB~~ MySQL y haciendo uso de la biblioteca PySide6 para la interfaz gráfica. Su objetivo principal es registrar la disponibilidad de aulas de cómputo en diferentes momentos para diversas materias.
 
 ## Características del Proyecto
 

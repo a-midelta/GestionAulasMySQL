@@ -15,13 +15,15 @@ from PySide6.QtWidgets import (
     QHeaderView,
 )
 from PySide6.QtCore import Qt, QSize, QDate
-from MongoDBHandler import MongoDBHandler
+# from MongoDBHandler import MongoDBHandler
+from MySQLHandler import MySQLHandler
 
 class MainWindow(QMainWindow):
-    def __init__(self, mongo_handler: MongoDBHandler):
+    def __init__(self, mysql_handler: MySQLHandler):
         super().__init__()
 
-        self.mongo_handler = mongo_handler
+        # self.mongo_handler = mongo_handler
+        self.mysql_handler = mysql_handler
 
         self.setWindowTitle("Gestión de Aulas")
         self.setGeometry(100, 100, 800, 600)
@@ -134,12 +136,14 @@ class MainWindow(QMainWindow):
             print("Todos los campos son obligatorios.")
             return
 
-        if self.mongo_handler.check_duplicate(day, time, classroom):
+        # if self.mongo_handler.check_duplicate(day, time, classroom):
+        if self.mysql_handler.check_duplicate(day, time, classroom):
             print("Registro duplicado (día, hora y/o aula ya ocupados).")
             return
 
         # Guardar en la base de datos
-        self.mongo_handler.insert_data(day, time, name, subject, classroom)
+        # self.mongo_handler.insert_data(day, time, name, subject, classroom)
+        self.mysql_handler.insert_data(day, time, name, subject, classroom)
         print("Datos guardados correctamente.")
 
         # Actualizar la tabla
@@ -150,12 +154,13 @@ class MainWindow(QMainWindow):
         self.table.setRowCount(0)
 
         # Obtener datos de la base de datos
-        data = self.mongo_handler.get_all_data()
+        # data = self.mongo_handler.get_all_data()
+        data = self.mysql_handler.get_all_data()
 
         # Llenar la tabla
         for row, record in enumerate(data):
             self.table.insertRow(row)
-            for col, value in enumerate(record.values()):
+            for col, value in enumerate(record):
                 item = QTableWidgetItem(str(value))
                 self.table.setItem(row, col, item)
 
@@ -171,7 +176,8 @@ class MainWindow(QMainWindow):
         time = self.table.item(selected_row, 1).text()
 
         # Eliminar el registro de la base de datos
-        self.mongo_handler.delete_data(day, time)
+        # self.mongo_handler.delete_data(day, time)
+        self.mysql_handler.delete_data(day, time)
         print("Registro eliminado correctamente.")
 
         # Actualizar la tabla
@@ -193,12 +199,18 @@ class MainWindow(QMainWindow):
         self.table.setRowCount(0)
 
         # Obtener datos filtrados desde la base de datos
-        filtered_data = self.mongo_handler.get_all_data(classroom, name, time)
+        # filtered_data = self.mongo_handler.get_all_data(classroom, name, time)
+        filtered_data = self.mysql_handler.get_all_data(classroom, name, time)
 
         # Llenar la tabla con los datos ya filtrados
+        # for row, record in enumerate(filtered_data):
+        #     self.table.insertRow(row)
+        #     for col, value in enumerate(record.values()):
+        #         item = QTableWidgetItem(str(value))
+        #         self.table.setItem(row, col, item)
         for row, record in enumerate(filtered_data):
             self.table.insertRow(row)
-            for col, value in enumerate(record.values()):
+            for col, value in enumerate(record):
                 item = QTableWidgetItem(str(value))
                 self.table.setItem(row, col, item)
         
@@ -255,7 +267,8 @@ class MainWindow(QMainWindow):
         self.table.item(selected_row, 4).setText(classroom)
 
         # Actualizar en la base de datos
-        self.mongo_handler.update_data(day, time, name, subject, classroom)
+        # self.mongo_handler.update_data(day, time, name, subject, classroom)
+        self.mysql_handler.update_data(day, time, name, subject, classroom)
 
         print("Registro actualizado correctamente.")
 
